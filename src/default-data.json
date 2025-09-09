@@ -1,0 +1,11 @@
+{
+    "title": {
+        "text": "A Textbox Demo"
+    },
+    "subTitle": {
+        "text": "This is a Sub title"
+    },
+    "body": {
+        "text": "You can use this element to place just a title line into your dashboard or to add some longer explain text to your dashboard. If you don't want a title, then just leave it out. If you don't want text, then just leave that out. For the title you can also choose the background text color."
+    }
+}
