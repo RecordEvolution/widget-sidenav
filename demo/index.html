@@ -2,7 +2,7 @@
 <html lang="en-GB">
     <head>
         <meta charset="utf-8" />
-        <title>Gauge</title>
+        <title>Side Nav</title>
         <style>
             html,
             body {
@@ -21,41 +21,53 @@
                 -webkit-font-smoothing: antialiased;
                 -moz-osx-font-smoothing: grayscale;
             }
-
             * {
                 width: 100%;
                 height: 100%;
             }
         </style>
+        <link
+            rel="preload"
+            href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL@20..48,100..700,0..1"
+            as="style"
+            onload="this.onload=null;this.rel='stylesheet'"
+        />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+            rel="stylesheet"
+        />
     </head>
-
     <body>
         <div id="demo"></div>
+
         <script src="https://storage.googleapis.com/reswarm-images/ObjectRandomizer.js"></script>
 
         <script type="module">
-            import { html, render } from 'lit'
+            import { render } from 'lit'
+            import { html, unsafeStatic } from 'lit/static-html.js'
+            const packageJson = await fetch('../package.json').then((res) => res.json())
+            const tag = unsafeStatic(`widget-sidenav-${packageJson.version}`)
             import '../dist/widget-sidenav.js'
             const data = await fetch('../src/default-data.json').then((res) => res.json())
             const themeObject = await fetch('themes/vintage.json').then((res) => res.json())
             const theme = { theme_name: 'vintage', theme_object: themeObject }
+
             render(
                 html`
-                    <widget-sidenav-1.1.3 .theme="${theme}" .inputData=${data}>
+                    <${tag} .theme="${theme}" .inputData=${data} route="/">
                         web component is not registered. Make sure to use the tag with the correct version
                         string from the package.json
-                    </widget-sidenav-1.1.3>
+                    </${tag}>
                 `,
-                document.getElementById('demo')
+                document.querySelector('#demo')
             )
-            const widget = document.getElementById('demo').children[0]
-            const keyPathsToRandomize = ['title.text', 'subTitle.fontWeight']
-            const inter = setInterval(() => {
-                const randomizedObj = randomizeObjectValues(data, keyPathsToRandomize)
 
-                // console.log('random', randomizedObj.dataseries[0].data[0])
+            const widget = document.getElementById('demo').children[0]
+            const keyPathsToRandomize = ['dataseries.0.data.0.state', 'title']
+
+            setInterval(() => {
+                const randomizedObj = randomizeObjectValues(data, keyPathsToRandomize)
                 widget.inputData = randomizedObj
-                // clearInterval(inter)
             }, 1000)
         </script>
     </body>

@@ -5,24 +5,32 @@
  * and run json-schema-to-typescript to regenerate this file.
  */
 
-export type Text = string;
-export type FontSize = string;
+export type TitleSettings = string;
+export type FontSize = number;
 export type FontWeight = number;
-export type Text1 = string;
-export type FontSize1 = string;
-export type FontWeight1 = number;
-export type Text2 = string;
-export type FontSize2 = string;
-export type FontWeight2 = number;
+export type Label = string;
+/**
+ * Name of the icon from https://fonts.google.com/icons
+ */
+export type IconName = string;
+/**
+ * Navigation to perform on click. Example: /settings/profile, /settings
+ */
+export type NavigationRoute = string;
+export type NavigationItems = {
+  label?: Label;
+  iconName?: IconName;
+  route?: NavigationRoute;
+  [k: string]: unknown;
+}[];
 
-export interface TextboxConfiguration {
+export interface InputData {
   title?: TitleSettings;
-  subTitle?: SubtitleSettings;
-  body?: BodySettings;
+  style?: ItemStyle;
+  navItems?: NavigationItems;
   [k: string]: unknown;
 }
-export interface TitleSettings {
-  text?: Text;
+export interface ItemStyle {
   fontSize?: FontSize;
   fontWeight?: FontWeight;
   color?: FontColor;
@@ -33,29 +41,5 @@ export interface FontColor {
   [k: string]: unknown;
 }
 export interface BackgroundColor {
-  [k: string]: unknown;
-}
-export interface SubtitleSettings {
-  text?: Text1;
-  fontSize?: FontSize1;
-  fontWeight?: FontWeight1;
-  color?: FontColor1;
-  [k: string]: unknown;
-}
-export interface FontColor1 {
-  [k: string]: unknown;
-}
-export interface BodySettings {
-  text?: Text2;
-  fontSize?: FontSize2;
-  fontWeight?: FontWeight2;
-  color?: FontColor2;
-  backgroundColor?: BackgroundColor1;
-  [k: string]: unknown;
-}
-export interface FontColor2 {
-  [k: string]: unknown;
-}
-export interface BackgroundColor1 {
   [k: string]: unknown;
 }

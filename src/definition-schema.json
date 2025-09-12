@@ -1,88 +1,22 @@
 {
-    "title": "Textbox Configuration",
+    "title": "Input Data",
     "type": "object",
     "properties": {
         "title": {
             "title": "Title Settings",
             "order": 1,
-            "type": "object",
-            "properties": {
-                "text": {
-                    "title": "Text",
-                    "order": 1,
-                    "type": "string"
-                },
-                "fontSize": {
-                    "title": "Font Size",
-                    "order": 2,
-                    "dataDrivenDisabled": true,
-                    "type": "string"
-                },
-                "fontWeight": {
-                    "title": "Font Weight",
-                    "order": 3,
-                    "dataDrivenDisabled": true,
-                    "type": "number"
-                },
-                "color": {
-                    "title": "Font Color",
-                    "order": 4,
-                    "type": "color",
-                    "color": true
-                },
-                "backgroundColor": {
-                    "title": "Background Color",
-                    "order": 5,
-                    "type": "color",
-                    "color": true
-                }
-            }
+            "type": "string"
         },
-        "subTitle": {
-            "title": "Subtitle Settings",
-            "type": "object",
-            "order": 2,
-            "properties": {
-                "text": {
-                    "title": "Text",
-                    "order": 1,
-                    "type": "string"
-                },
-                "fontSize": {
-                    "title": "Font Size",
-                    "order": 2,
-                    "dataDrivenDisabled": true,
-                    "type": "string"
-                },
-                "fontWeight": {
-                    "title": "Font Weight",
-                    "order": 3,
-                    "dataDrivenDisabled": true,
-                    "type": "number"
-                },
-                "color": {
-                    "title": "Font Color",
-                    "order": 4,
-                    "type": "color",
-                    "color": true
-                }
-            }
-        },
-        "body": {
-            "title": "Body Settings",
+        "style": {
+            "title": "Item Style",
             "order": 3,
             "type": "object",
             "properties": {
-                "text": {
-                    "title": "Text",
-                    "order": 1,
-                    "type": "string"
-                },
                 "fontSize": {
                     "title": "Font Size",
-                    "order": 2,
+                    "order": 1,
                     "dataDrivenDisabled": true,
-                    "type": "string"
+                    "type": "number"
                 },
                 "fontWeight": {
                     "title": "Font Weight",
@@ -94,13 +28,41 @@
                     "title": "Font Color",
                     "order": 4,
                     "type": "color",
-                    "color": true
+                    "dataDrivenDisabled": true
                 },
                 "backgroundColor": {
                     "title": "Background Color",
-                    "order": 5,
+                    "order": 4,
                     "type": "color",
-                    "color": true
+                    "dataDrivenDisabled": true
+                }
+            }
+        },
+        "navItems": {
+            "title": "Navigation Items",
+            "order": 3,
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "label": {
+                        "title": "Label",
+                        "order": 1,
+                        "type": "string"
+                    },
+                    "iconName": {
+                        "title": "Icon Name",
+                        "order": 2,
+                        "description": "Name of the icon from https://fonts.google.com/icons",
+                        "dataDrivenDisabled": true,
+                        "type": "string"
+                    },
+                    "route": {
+                        "title": "Navigation Route",
+                        "order": 3,
+                        "description": "Navigation to perform on click. Example: /settings/profile, /settings",
+                        "type": "string"
+                    }
                 }
             }
         }
