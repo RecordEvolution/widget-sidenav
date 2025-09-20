@@ -1,5 +1,5 @@
 import { html, css, LitElement, PropertyValues } from 'lit'
-import { property, state } from 'lit/decorators.js'
+import { customElement, property, state } from 'lit/decorators.js'
 import { repeat } from 'lit/directives/repeat.js'
 import { InputData } from './definition-schema'
 
@@ -9,7 +9,8 @@ type Theme = {
     theme_name: string
     theme_object: any
 }
-export class WidgetTextbox extends LitElement {
+@customElement('widget-sidenav-versionplaceholder')
+export class WidgetSidenav extends LitElement {
     @property({ type: Object }) inputData?: InputData
     @property({ type: Object }) theme?: Theme
     @property({ type: String }) route?: string
@@ -38,19 +39,30 @@ export class WidgetTextbox extends LitElement {
         this.themeTitleColor = cssTextColor || this.theme?.theme_object?.title?.textStyle?.color
     }
 
-    handleNavItemClick(item: { label?: string; iconName?: string; route?: string }) {
-        console.log('Navigating to:', item.route)
+    handleNavItemClick(route?: string) {
+        // console.log('Navigating to:', item.route)
         const event = new CustomEvent('nav-submit', {
-            detail: { path: item.route },
+            detail: { path: route },
             bubbles: true,
             composed: true
         })
         this.dispatchEvent(event)
     }
 
-    normalizeRoute(route?: string) {
-        if (!route) return '/'
-        return route
+    trimRoute(route?: string) {
+        if (!route) return ''
+        return '/' + route.split('/').filter(Boolean).join('/')
+    }
+
+    matchesRoute(itemRoute?: string) {
+        if (itemRoute === undefined) return false
+        const route = this.trimRoute(decodeURIComponent(this.route || '/'))
+        const subRoute = this.trimRoute(itemRoute)
+        if (itemRoute.startsWith('/')) {
+            return route.startsWith(subRoute)
+        } else {
+            return route.endsWith('/' + subRoute) || route === subRoute
+        }
     }
 
     static styles = css`
@@ -93,12 +105,11 @@ export class WidgetTextbox extends LitElement {
             border-radius: 4px;
         }
 
-        md-icon {
+        mdif2-icon {
             font-family: 'Material Symbols Outlined';
         }
 
         .selected {
-            font-weight: bold;
             background-color: rgba(0, 0, 0, 0.1);
         }
 
@@ -111,9 +122,8 @@ export class WidgetTextbox extends LitElement {
 
     render() {
         const fontSize = this.inputData?.style?.fontSize ?? 16
-        const iconFontSize = this.inputData?.style?.fontSize ?? 16 * 1.5
+        const iconFontSize = (this.inputData?.style?.fontSize ?? 16) * 1.5
         const gap = fontSize * 0.4
-        const lastRouteSegment = decodeURIComponent(this.route?.split('/').pop() || '')
         return html`
             <div
                 class="wrapper"
@@ -122,22 +132,31 @@ export class WidgetTextbox extends LitElement {
                 font-weight: ${this.inputData?.style?.fontWeight};
                 font-size: ${fontSize}px;"
             >
-                <h2 class="paging" ?active=${this.inputData?.title}>${this.inputData?.title}</h2>
+                <h2
+                    class="paging"
+                    style=${this.inputData?.route ? 'cursor: pointer' : ''}
+                    ?active=${this.inputData?.title}
+                    @click=${() => this.handleNavItemClick(this.inputData?.route)}
+                >
+                    ${this.inputData?.title}
+                </h2>
                 <div class="nav-list">
                     ${repeat(
                         this.inputData?.navItems || [],
                         (item) => item.label,
                         (item) => html`
                             <div
-                                class="nav-item ${lastRouteSegment === item.route ? 'selected' : ''}"
+                                class="nav-item ${this.matchesRoute(item.route) ? 'selected' : ''}"
                                 style="gap: ${gap}px;"
-                                @click=${() => this.handleNavItemClick(item)}
+                                @click=${() => this.handleNavItemClick(item.route)}
                             >
                                 ${item.iconName
-                                    ? html`<md-icon
-                                          style="font-size: ${iconFontSize}px;width: ${iconFontSize}px;height: ${iconFontSize}px;"
-                                          >${item.iconName}</md-icon
-                                      >`
+                                    ? html`
+                                          <mdif2-icon
+                                              style="font-size: ${iconFontSize}px;width: ${iconFontSize}px;"
+                                              >${item.iconName}
+                                          </mdif2-icon>
+                                      `
                                     : ''}
                                 ${item.label}
                             </div>
@@ -148,4 +167,3 @@ export class WidgetTextbox extends LitElement {
         `
     }
 }
-window.customElements.define('widget-sidenav-versionplaceholder', WidgetTextbox)

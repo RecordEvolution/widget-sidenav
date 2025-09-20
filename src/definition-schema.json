@@ -7,6 +7,12 @@
             "order": 1,
             "type": "string"
         },
+        "route": {
+            "title": "Title Navigation",
+            "order": 3,
+            "description": "Navigation to perform on title click. Example: If you are at route /my/route/asset then 'settings/profile' routes to '/my/route/settings/profile'.",
+            "type": "string"
+        },
         "style": {
             "title": "Item Style",
             "order": 3,
@@ -60,7 +66,7 @@
                     "route": {
                         "title": "Navigation Route",
                         "order": 3,
-                        "description": "Navigation to perform on click. Example: /settings/profile, /settings",
+                        "description": "Navigation to perform on click. Example: If you are at route /my/route/asset then 'settings/profile' routes to '/my/route/settings/profile'.",
                         "type": "string"
                     }
                 }
