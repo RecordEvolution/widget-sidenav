@@ -9,7 +9,7 @@ export type TitleSettings = string;
 /**
  * Navigation to perform on title click. Example: If you are at route /my/route/asset then 'settings/profile' routes to '/my/route/settings/profile'.
  */
-export type Navigation = string;
+export type TitleNavigation = string;
 export type FontSize = number;
 export type FontWeight = number;
 export type Label = string;
@@ -30,7 +30,7 @@ export type NavigationItems = {
 
 export interface InputData {
   title?: TitleSettings;
-  route?: Navigation;
+  route?: TitleNavigation;
   style?: ItemStyle;
   navItems?: NavigationItems;
   [k: string]: unknown;
