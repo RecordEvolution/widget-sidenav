@@ -83,7 +83,6 @@ export class WidgetSidenav extends LitElement {
             height: 100%;
             width: 100%;
             padding: 12px;
-            gap: 12px;
             box-sizing: border-box;
         }
 
