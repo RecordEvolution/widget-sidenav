@@ -61,7 +61,7 @@ export class WidgetSidenav extends LitElement {
         if (itemRoute.startsWith('/')) {
             return route.startsWith(subRoute)
         } else {
-            return route.endsWith('/' + subRoute) || route === subRoute
+            return route.endsWith(subRoute) || route === subRoute
         }
     }
 
