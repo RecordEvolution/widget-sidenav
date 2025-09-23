@@ -54,6 +54,16 @@ export class WidgetSidenav extends LitElement {
         return '/' + route.split('/').filter(Boolean).join('/')
     }
 
+    addSlashes(item?: any): string | undefined {
+        if (!item.route?.endsWith('/') && item.trailingSlash) {
+            item.route += '/'
+        }
+        if (!item.route?.startsWith('/') && item.leadingSlash) {
+            item.route = '/' + item.route
+        }
+        return item.route
+    }
+
     matchesRoute(itemRoute?: string) {
         if (itemRoute === undefined) return false
         const route = this.trimRoute(decodeURIComponent(this.route || '/'))
@@ -145,9 +155,9 @@ export class WidgetSidenav extends LitElement {
                         (item) => item.label,
                         (item) => html`
                             <div
-                                class="nav-item ${this.matchesRoute(item.route) ? 'selected' : ''}"
+                                class="nav-item ${this.matchesRoute(this.addSlashes(item)) ? 'selected' : ''}"
                                 style="gap: ${gap}px;"
-                                @click=${() => this.handleNavItemClick(item.route)}
+                                @click=${() => this.handleNavItemClick(this.addSlashes(item))}
                             >
                                 ${item.iconName
                                     ? html`

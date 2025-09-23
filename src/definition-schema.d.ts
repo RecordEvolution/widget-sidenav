@@ -21,10 +21,20 @@ export type IconName = string;
  * Navigation to perform on click. Example: If you are at route /my/route/asset then 'settings/profile' routes to '/my/route/settings/profile'.
  */
 export type NavigationRoute = string;
+/**
+ * Whether to add a leading slash to the navigation route.
+ */
+export type AddLeadingSlash = boolean;
+/**
+ * Whether to add a trailing slash to the navigation route.
+ */
+export type AddTraillingSlash = boolean;
 export type NavigationItems = {
   label?: Label;
   iconName?: IconName;
   route?: NavigationRoute;
+  leadingSlash?: AddLeadingSlash;
+  trailingSlash?: AddTraillingSlash;
   [k: string]: unknown;
 }[];
 
