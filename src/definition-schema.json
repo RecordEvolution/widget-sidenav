@@ -29,7 +29,7 @@
         },
         "style": {
             "title": "Item Style",
-            "order": 3,
+            "order": 6,
             "type": "object",
             "properties": {
                 "fontSize": {
@@ -60,7 +60,7 @@
         },
         "navItems": {
             "title": "Navigation Items",
-            "order": 3,
+            "order": 7,
             "type": "array",
             "items": {
                 "type": "object",
