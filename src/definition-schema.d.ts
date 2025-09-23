@@ -10,6 +10,14 @@ export type TitleSettings = string;
  * Navigation to perform on title click. Example: If you are at route /my/route/asset then 'settings/profile' routes to '/my/route/settings/profile'.
  */
 export type TitleNavigation = string;
+/**
+ * Whether to add a leading slash to the navigation route.
+ */
+export type AddLeadingSlash = boolean;
+/**
+ * Whether to add a trailing slash to the navigation route.
+ */
+export type AddTraillingSlash = boolean;
 export type FontSize = number;
 export type FontWeight = number;
 export type Label = string;
@@ -24,23 +32,25 @@ export type NavigationRoute = string;
 /**
  * Whether to add a leading slash to the navigation route.
  */
-export type AddLeadingSlash = boolean;
+export type AddLeadingSlash1 = boolean;
 /**
  * Whether to add a trailing slash to the navigation route.
  */
-export type AddTraillingSlash = boolean;
+export type AddTraillingSlash1 = boolean;
 export type NavigationItems = {
   label?: Label;
   iconName?: IconName;
   route?: NavigationRoute;
-  leadingSlash?: AddLeadingSlash;
-  trailingSlash?: AddTraillingSlash;
+  leadingSlash?: AddLeadingSlash1;
+  trailingSlash?: AddTraillingSlash1;
   [k: string]: unknown;
 }[];
 
 export interface InputData {
   title?: TitleSettings;
   route?: TitleNavigation;
+  leadingSlash?: AddLeadingSlash;
+  trailingSlash?: AddTraillingSlash;
   style?: ItemStyle;
   navItems?: NavigationItems;
   [k: string]: unknown;

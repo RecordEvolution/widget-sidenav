@@ -145,7 +145,7 @@ export class WidgetSidenav extends LitElement {
                     class="paging"
                     style=${this.inputData?.route ? 'cursor: pointer' : ''}
                     ?active=${this.inputData?.title}
-                    @click=${() => this.handleNavItemClick(this.inputData?.route)}
+                    @click=${() => this.handleNavItemClick(this.addSlashes(this.inputData?.route))}
                 >
                     ${this.inputData?.title}
                 </h2>

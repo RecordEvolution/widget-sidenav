@@ -13,6 +13,20 @@
             "description": "Navigation to perform on title click. Example: If you are at route /my/route/asset then 'settings/profile' routes to '/my/route/settings/profile'.",
             "type": "string"
         },
+        "leadingSlash": {
+            "title": "Add Leading Slash",
+            "order": 4,
+            "description": "Whether to add a leading slash to the navigation route.",
+            "dataDrivenDisabled": true,
+            "type": "boolean"
+        },
+        "trailingSlash": {
+            "title": "Add Trailling Slash",
+            "order": 5,
+            "description": "Whether to add a trailing slash to the navigation route.",
+            "dataDrivenDisabled": true,
+            "type": "boolean"
+        },
         "style": {
             "title": "Item Style",
             "order": 3,
