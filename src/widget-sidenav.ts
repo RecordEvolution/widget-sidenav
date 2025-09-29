@@ -42,7 +42,7 @@ export class WidgetSidenav extends LitElement {
     handleNavItemClick(route?: string) {
         // console.log('Navigating to:', item.route)
         const event = new CustomEvent('nav-submit', {
-            detail: { path: route },
+            detail: { path: String(route) },
             bubbles: true,
             composed: true
         })
@@ -50,11 +50,13 @@ export class WidgetSidenav extends LitElement {
     }
 
     trimRoute(route?: string) {
+        route = String(route)
         if (!route) return ''
         return '/' + route.split('/').filter(Boolean).join('/')
     }
 
     addSlashes(item?: any): string | undefined {
+        item.route = String(item.route)
         if (!item.route?.endsWith('/') && item.trailingSlash) {
             item.route += '/'
         }
@@ -66,6 +68,7 @@ export class WidgetSidenav extends LitElement {
 
     matchesRoute(itemRoute?: string) {
         if (itemRoute === undefined) return false
+        itemRoute = String(itemRoute)
         const route = this.trimRoute(decodeURIComponent(this.route || '/'))
         const subRoute = this.trimRoute(itemRoute)
         if (itemRoute.startsWith('/')) {
