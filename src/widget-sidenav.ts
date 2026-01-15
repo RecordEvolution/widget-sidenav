@@ -117,7 +117,7 @@ export class WidgetSidenav extends LitElement {
             border-radius: 4px;
         }
 
-        mdif2-icon {
+        md-icon {
             font-family: 'Material Symbols Outlined';
         }
 
@@ -164,10 +164,10 @@ export class WidgetSidenav extends LitElement {
                             >
                                 ${item.iconName
                                     ? html`
-                                          <mdif2-icon
+                                          <md-icon
                                               style="font-size: ${iconFontSize}px;width: ${iconFontSize}px;"
                                               >${item.iconName}
-                                          </mdif2-icon>
+                                          </md-icon>
                                       `
                                     : ''}
                                 ${item.label}
