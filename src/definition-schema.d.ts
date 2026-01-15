@@ -38,33 +38,33 @@ export type AddLeadingSlash1 = boolean;
  */
 export type AddTraillingSlash1 = boolean;
 export type NavigationItems = {
-  label?: Label;
-  iconName?: IconName;
-  route?: NavigationRoute;
-  leadingSlash?: AddLeadingSlash1;
-  trailingSlash?: AddTraillingSlash1;
-  [k: string]: unknown;
+    label?: Label;
+    iconName?: IconName;
+    route?: NavigationRoute;
+    leadingSlash?: AddLeadingSlash1;
+    trailingSlash?: AddTraillingSlash1;
+    [k: string]: unknown;
 }[];
 
 export interface InputData {
-  title?: TitleSettings;
-  route?: TitleNavigation;
-  leadingSlash?: AddLeadingSlash;
-  trailingSlash?: AddTraillingSlash;
-  style?: ItemStyle;
-  navItems?: NavigationItems;
-  [k: string]: unknown;
+    title?: TitleSettings;
+    route?: TitleNavigation;
+    leadingSlash?: AddLeadingSlash;
+    trailingSlash?: AddTraillingSlash;
+    style?: ItemStyle;
+    navItems?: NavigationItems;
+    [k: string]: unknown;
 }
 export interface ItemStyle {
-  fontSize?: FontSize;
-  fontWeight?: FontWeight;
-  color?: FontColor;
-  backgroundColor?: BackgroundColor;
-  [k: string]: unknown;
+    fontSize?: FontSize;
+    fontWeight?: FontWeight;
+    color?: FontColor;
+    backgroundColor?: BackgroundColor;
+    [k: string]: unknown;
 }
 export interface FontColor {
-  [k: string]: unknown;
+    [k: string]: unknown;
 }
 export interface BackgroundColor {
-  [k: string]: unknown;
+    [k: string]: unknown;
 }
