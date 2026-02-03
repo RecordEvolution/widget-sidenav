@@ -5,38 +5,53 @@
  * and run json-schema-to-typescript to regenerate this file.
  */
 
+/**
+ * The header text displayed at the top of the side navigation, typically used for branding or section identification.
+ */
 export type TitleSettings = string;
 /**
- * Navigation to perform on title click. Example: If you are at route /my/route/asset then 'settings/profile' routes to '/my/route/settings/profile'.
+ * The destination path when the title/header is clicked. Use for navigating to a home or main page. Use relative paths or enable leadingSlash for absolute routing.
  */
 export type TitleNavigation = string;
 /**
- * Whether to add a leading slash to the navigation route.
+ * When enabled, prepends '/' to the title's navigation route making it absolute from the root. When disabled, routes are relative to the current location.
  */
 export type AddLeadingSlash = boolean;
 /**
- * Whether to add a trailing slash to the navigation route.
+ * When enabled, appends '/' to the end of the title's navigation route. Required by some routing configurations.
  */
 export type AddTraillingSlash = boolean;
+/**
+ * Font size in pixels for navigation item labels.
+ */
 export type FontSize = number;
+/**
+ * Font weight for navigation items (100=thin, 400=normal, 700=bold, 900=black).
+ */
 export type FontWeight = number;
+/**
+ * The text displayed for this navigation item. Should clearly describe the destination section.
+ */
 export type Label = string;
 /**
- * Name of the icon from https://fonts.google.com/icons
+ * Material icon name displayed alongside the label. Find icon names at https://fonts.google.com/icons (e.g., 'dashboard', 'settings', 'analytics', 'people').
  */
 export type IconName = string;
 /**
- * Navigation to perform on click. Example: If you are at route /my/route/asset then 'settings/profile' routes to '/my/route/settings/profile'.
+ * The destination path when this item is clicked. Use relative paths that append to the current URL, or enable leadingSlash for absolute routing.
  */
 export type NavigationRoute = string;
 /**
- * Whether to add a leading slash to the navigation route.
+ * When enabled, prepends '/' to this item's route making it absolute from the root.
  */
 export type AddLeadingSlash1 = boolean;
 /**
- * Whether to add a trailing slash to the navigation route.
+ * When enabled, appends '/' to the end of this item's route.
  */
 export type AddTraillingSlash1 = boolean;
+/**
+ * Array of navigation links displayed vertically in the sidebar. Each item can have a label, icon, and destination route.
+ */
 export type NavigationItems = {
     label?: Label;
     iconName?: IconName;
@@ -46,6 +61,9 @@ export type NavigationItems = {
     [k: string]: unknown;
 }[];
 
+/**
+ * A vertical side navigation widget for creating sidebar menus in dashboards. Use this widget to provide hierarchical or list-based navigation along the side of the dashboard. Features a clickable title/header and multiple navigation items with icons. Supports customizable styling for fonts and colors to match your dashboard theme. Ideal for applications with multiple sections, settings pages, or when you need persistent navigation that doesn't take up header space.
+ */
 export interface InputData {
     title?: TitleSettings;
     route?: TitleNavigation;
@@ -55,6 +73,9 @@ export interface InputData {
     navItems?: NavigationItems;
     [k: string]: unknown;
 }
+/**
+ * Global styling options applied to all navigation items in the sidebar.
+ */
 export interface ItemStyle {
     fontSize?: FontSize;
     fontWeight?: FontWeight;
@@ -62,9 +83,15 @@ export interface ItemStyle {
     backgroundColor?: BackgroundColor;
     [k: string]: unknown;
 }
+/**
+ * Text color for navigation item labels and icons.
+ */
 export interface FontColor {
     [k: string]: unknown;
 }
+/**
+ * Background color of the side navigation panel.
+ */
 export interface BackgroundColor {
     [k: string]: unknown;
 }
