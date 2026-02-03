@@ -1,57 +1,64 @@
 {
     "title": "Input Data",
+    "description": "A vertical side navigation widget for creating sidebar menus in dashboards. Use this widget to provide hierarchical or list-based navigation along the side of the dashboard. Features a clickable title/header and multiple navigation items with icons. Supports customizable styling for fonts and colors to match your dashboard theme. Ideal for applications with multiple sections, settings pages, or when you need persistent navigation that doesn't take up header space.",
     "type": "object",
     "properties": {
         "title": {
             "title": "Title Settings",
+            "description": "The header text displayed at the top of the side navigation, typically used for branding or section identification.",
             "order": 1,
             "type": "string"
         },
         "route": {
             "title": "Title Navigation",
             "order": 3,
-            "description": "Navigation to perform on title click. Example: If you are at route /my/route/asset then 'settings/profile' routes to '/my/route/settings/profile'.",
+            "description": "The destination path when the title/header is clicked. Use for navigating to a home or main page. Use relative paths or enable leadingSlash for absolute routing.",
             "type": "string"
         },
         "leadingSlash": {
             "title": "Add Leading Slash",
             "order": 4,
-            "description": "Whether to add a leading slash to the navigation route.",
+            "description": "When enabled, prepends '/' to the title's navigation route making it absolute from the root. When disabled, routes are relative to the current location.",
             "dataDrivenDisabled": true,
             "type": "boolean"
         },
         "trailingSlash": {
             "title": "Add Trailling Slash",
             "order": 5,
-            "description": "Whether to add a trailing slash to the navigation route.",
+            "description": "When enabled, appends '/' to the end of the title's navigation route. Required by some routing configurations.",
             "dataDrivenDisabled": true,
             "type": "boolean"
         },
         "style": {
             "title": "Item Style",
+            "description": "Global styling options applied to all navigation items in the sidebar.",
             "order": 6,
             "type": "object",
             "properties": {
                 "fontSize": {
                     "title": "Font Size",
+                    "description": "Font size in pixels for navigation item labels.",
                     "order": 1,
                     "dataDrivenDisabled": true,
                     "type": "number"
                 },
                 "fontWeight": {
                     "title": "Font Weight",
+                    "description": "Font weight for navigation items (100=thin, 400=normal, 700=bold, 900=black).",
                     "order": 3,
                     "dataDrivenDisabled": true,
                     "type": "number"
                 },
                 "color": {
                     "title": "Font Color",
+                    "description": "Text color for navigation item labels and icons.",
                     "order": 4,
                     "type": "color",
                     "dataDrivenDisabled": true
                 },
                 "backgroundColor": {
                     "title": "Background Color",
+                    "description": "Background color of the side navigation panel.",
                     "order": 4,
                     "type": "color",
                     "dataDrivenDisabled": true
@@ -60,6 +67,7 @@
         },
         "navItems": {
             "title": "Navigation Items",
+            "description": "Array of navigation links displayed vertically in the sidebar. Each item can have a label, icon, and destination route.",
             "order": 7,
             "type": "array",
             "items": {
@@ -67,33 +75,34 @@
                 "properties": {
                     "label": {
                         "title": "Label",
+                        "description": "The text displayed for this navigation item. Should clearly describe the destination section.",
                         "order": 1,
                         "type": "string"
                     },
                     "iconName": {
                         "title": "Icon Name",
                         "order": 2,
-                        "description": "Name of the icon from https://fonts.google.com/icons",
+                        "description": "Material icon name displayed alongside the label. Find icon names at https://fonts.google.com/icons (e.g., 'dashboard', 'settings', 'analytics', 'people').",
                         "dataDrivenDisabled": true,
                         "type": "string"
                     },
                     "route": {
                         "title": "Navigation Route",
                         "order": 3,
-                        "description": "Navigation to perform on click. Example: If you are at route /my/route/asset then 'settings/profile' routes to '/my/route/settings/profile'.",
+                        "description": "The destination path when this item is clicked. Use relative paths that append to the current URL, or enable leadingSlash for absolute routing.",
                         "type": "string"
                     },
                     "leadingSlash": {
                         "title": "Add Leading Slash",
                         "order": 4,
-                        "description": "Whether to add a leading slash to the navigation route.",
+                        "description": "When enabled, prepends '/' to this item's route making it absolute from the root.",
                         "dataDrivenDisabled": true,
                         "type": "boolean"
                     },
                     "trailingSlash": {
                         "title": "Add Trailling Slash",
                         "order": 5,
-                        "description": "Whether to add a trailing slash to the navigation route.",
+                        "description": "When enabled, appends '/' to the end of this item's route.",
                         "dataDrivenDisabled": true,
                         "type": "boolean"
                     }
