@@ -55,15 +55,28 @@ export class WidgetSidenav extends LitElement {
         return '/' + route.split('/').filter(Boolean).join('/')
     }
 
-    addSlashes(item?: any): string | undefined {
-        item.route = String(item.route)
-        if (!item.route?.endsWith('/') && item.trailingSlash) {
-            item.route += '/'
+    resolveRoute(item?: any): string | undefined {
+        let route = String(item?.route ?? '')
+        if (item?.variables) {
+            for (const variable of item.variables) {
+                if (variable.label) {
+                    route = route
+                        .split(`{{${variable.label}}}`)
+                        .join(encodeURIComponent(String(variable.value ?? '')))
+                }
+            }
         }
-        if (!item.route?.startsWith('/') && item.leadingSlash) {
-            item.route = '/' + item.route
+        if (route.includes('*')) {
+            const currentSegments = (this.route || '').split('/').filter(Boolean)
+            const routeSegments = route.split('/').filter(Boolean)
+            for (let i = 0; i < routeSegments.length; i++) {
+                if (routeSegments[i] === '*') {
+                    routeSegments[i] = currentSegments[i] ?? ''
+                }
+            }
+            route = (route.startsWith('/') ? '/' : '') + routeSegments.filter(Boolean).join('/')
         }
-        return item.route
+        return route
     }
 
     matchesRoute(itemRoute?: string) {
@@ -148,7 +161,13 @@ export class WidgetSidenav extends LitElement {
                     class="paging"
                     style=${this.inputData?.route ? 'cursor: pointer' : ''}
                     ?active=${this.inputData?.title}
-                    @click=${() => this.handleNavItemClick(this.addSlashes(this.inputData))}
+                    @click=${() =>
+                        this.handleNavItemClick(
+                            this.resolveRoute({
+                                route: this.inputData?.route,
+                                variables: this.inputData?.variables
+                            })
+                        )}
                 >
                     ${this.inputData?.title}
                 </h2>
@@ -158,9 +177,11 @@ export class WidgetSidenav extends LitElement {
                         (item) => item.label,
                         (item) => html`
                             <div
-                                class="nav-item ${this.matchesRoute(this.addSlashes(item)) ? 'selected' : ''}"
+                                class="nav-item ${this.matchesRoute(this.resolveRoute(item))
+                                    ? 'selected'
+                                    : ''}"
                                 style="gap: ${gap}px;"
-                                @click=${() => this.handleNavItemClick(this.addSlashes(item))}
+                                @click=${() => this.handleNavItemClick(this.resolveRoute(item))}
                             >
                                 ${item.iconName
                                     ? html`

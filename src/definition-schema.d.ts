@@ -14,13 +14,21 @@ export type TitleSettings = string;
  */
 export type TitleNavigation = string;
 /**
- * When enabled, prepends '/' to the title's navigation route making it absolute from the root. When disabled, routes are relative to the current location.
+ * The variable name used in the route string. Reference this in your route using the {{label}} syntax. Use descriptive names like 'temperature', 'status', 'deviceName'.
  */
-export type AddLeadingSlash = boolean;
+export type Label = string;
 /**
- * When enabled, appends '/' to the end of the title's navigation route. Required by some routing configurations.
+ * The replacement text that will appear in place of {{label}} in the rendered output. Can be a static value or bound to a data column for dynamic updates.
  */
-export type AddTraillingSlash = boolean;
+export type Value = string;
+/**
+ * Array of variable definitions for dynamic route segment substitution. Each variable has a label (used in the route string as {{label}}) and a value (the replacement text). Values can be static or bound to data columns for real-time updates.
+ */
+export type TitleNavigationVariables = {
+    label?: Label;
+    value?: Value;
+    [k: string]: unknown;
+}[];
 /**
  * Font size in pixels for navigation item labels.
  */
@@ -32,32 +40,39 @@ export type FontWeight = number;
 /**
  * The text displayed for this navigation item. Should clearly describe the destination section.
  */
-export type Label = string;
+export type Label1 = string;
 /**
  * Material icon name displayed alongside the label. Find icon names at https://fonts.google.com/icons (e.g., 'dashboard', 'settings', 'analytics', 'people').
  */
 export type IconName = string;
 /**
- * The destination path when this item is clicked. Use relative paths that append to the current URL, or enable leadingSlash for absolute routing.
+ * The destination path when this item is clicked. Supports two dynamic substitution mechanisms: (1) Variable placeholders using double curly braces — define variables in the 'Variables' array below and reference them as {{variableName}} in the route string (e.g., '/device/{{deviceId}}/details' where a variable with label 'deviceId' provides the value). (2) Wildcard segments using a single asterisk '*' as a full path segment — each '*' is replaced at runtime by the segment at the same position from the current browser route (e.g., '/* /settings' navigates to the settings page while preserving the first segment of the current URL). The '*' must be the entire segment to be substituted; partial wildcards like 'test*' are treated as literal text. Routes starting with '/' are absolute; routes without a leading slash are relative to the current location.
  */
 export type NavigationRoute = string;
 /**
- * When enabled, prepends '/' to this item's route making it absolute from the root.
+ * The variable name used in the route string. Reference this in your route using the {{label}} syntax. Use descriptive names like 'temperature', 'status', 'deviceName'.
  */
-export type AddLeadingSlash1 = boolean;
+export type Label2 = string;
 /**
- * When enabled, appends '/' to the end of this item's route.
+ * The replacement text that will appear in place of {{label}} in the rendered output. Can be a static value or bound to a data column for dynamic updates.
  */
-export type AddTraillingSlash1 = boolean;
+export type Value1 = string;
+/**
+ * Array of variable definitions for dynamic route segment substitution. Each variable has a label (used in the route string as {{label}}) and a value (the replacement text). Values can be static or bound to data columns for real-time updates.
+ */
+export type NavigationVariables = {
+    label?: Label2;
+    value?: Value1;
+    [k: string]: unknown;
+}[];
 /**
  * Array of navigation links displayed vertically in the sidebar. Each item can have a label, icon, and destination route.
  */
 export type NavigationItems = {
-    label?: Label;
+    label?: Label1;
     iconName?: IconName;
     route?: NavigationRoute;
-    leadingSlash?: AddLeadingSlash1;
-    trailingSlash?: AddTraillingSlash1;
+    variables?: NavigationVariables;
     [k: string]: unknown;
 }[];
 
@@ -67,8 +82,7 @@ export type NavigationItems = {
 export interface InputData {
     title?: TitleSettings;
     route?: TitleNavigation;
-    leadingSlash?: AddLeadingSlash;
-    trailingSlash?: AddTraillingSlash;
+    variables?: TitleNavigationVariables;
     style?: ItemStyle;
     navItems?: NavigationItems;
     [k: string]: unknown;

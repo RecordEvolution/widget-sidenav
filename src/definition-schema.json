@@ -15,19 +15,29 @@
             "description": "The destination path when the title/header is clicked. Use for navigating to a home or main page. Use relative paths or enable leadingSlash for absolute routing.",
             "type": "string"
         },
-        "leadingSlash": {
-            "title": "Add Leading Slash",
+        "variables": {
+            "title": "Title Navigation Variables",
+            "description": "Array of variable definitions for dynamic route segment substitution. Each variable has a label (used in the route string as {{label}}) and a value (the replacement text). Values can be static or bound to data columns for real-time updates.",
+            "type": "array",
+            "dataDrivenDisabled": true,
             "order": 4,
-            "description": "When enabled, prepends '/' to the title's navigation route making it absolute from the root. When disabled, routes are relative to the current location.",
-            "dataDrivenDisabled": true,
-            "type": "boolean"
-        },
-        "trailingSlash": {
-            "title": "Add Trailling Slash",
-            "order": 5,
-            "description": "When enabled, appends '/' to the end of the title's navigation route. Required by some routing configurations.",
-            "dataDrivenDisabled": true,
-            "type": "boolean"
+            "items": {
+                "type": "object",
+                "properties": {
+                    "label": {
+                        "title": "Label",
+                        "description": "The variable name used in the route string. Reference this in your route using the {{label}} syntax. Use descriptive names like 'temperature', 'status', 'deviceName'.",
+                        "type": "string",
+                        "order": 1
+                    },
+                    "value": {
+                        "title": "Value",
+                        "description": "The replacement text that will appear in place of {{label}} in the rendered output. Can be a static value or bound to a data column for dynamic updates.",
+                        "type": "string",
+                        "order": 2
+                    }
+                }
+            }
         },
         "style": {
             "title": "Item Style",
@@ -89,22 +99,32 @@
                     "route": {
                         "title": "Navigation Route",
                         "order": 3,
-                        "description": "The destination path when this item is clicked. Use relative paths that append to the current URL, or enable leadingSlash for absolute routing.",
+                        "description": "The destination path when this item is clicked. Supports two dynamic substitution mechanisms: (1) Variable placeholders using double curly braces — define variables in the 'Variables' array below and reference them as {{variableName}} in the route string (e.g., '/device/{{deviceId}}/details' where a variable with label 'deviceId' provides the value). (2) Wildcard segments using a single asterisk '*' as a full path segment — each '*' is replaced at runtime by the segment at the same position from the current browser route (e.g., '/*/settings' navigates to the settings page while preserving the first segment of the current URL). The '*' must be the entire segment to be substituted; partial wildcards like 'test*' are treated as literal text. Routes starting with '/' are absolute; routes without a leading slash are relative to the current location.",
                         "type": "string"
                     },
-                    "leadingSlash": {
-                        "title": "Add Leading Slash",
+                    "variables": {
+                        "title": "Navigation Variables",
+                        "description": "Array of variable definitions for dynamic route segment substitution. Each variable has a label (used in the route string as {{label}}) and a value (the replacement text). Values can be static or bound to data columns for real-time updates.",
+                        "type": "array",
+                        "dataDrivenDisabled": true,
                         "order": 4,
-                        "description": "When enabled, prepends '/' to this item's route making it absolute from the root.",
-                        "dataDrivenDisabled": true,
-                        "type": "boolean"
-                    },
-                    "trailingSlash": {
-                        "title": "Add Trailling Slash",
-                        "order": 5,
-                        "description": "When enabled, appends '/' to the end of this item's route.",
-                        "dataDrivenDisabled": true,
-                        "type": "boolean"
+                        "items": {
+                            "type": "object",
+                            "properties": {
+                                "label": {
+                                    "title": "Label",
+                                    "description": "The variable name used in the route string. Reference this in your route using the {{label}} syntax. Use descriptive names like 'temperature', 'status', 'deviceName'.",
+                                    "type": "string",
+                                    "order": 1
+                                },
+                                "value": {
+                                    "title": "Value",
+                                    "description": "The replacement text that will appear in place of {{label}} in the rendered output. Can be a static value or bound to a data column for dynamic updates.",
+                                    "type": "string",
+                                    "order": 2
+                                }
+                            }
+                        }
                     }
                 }
             }
