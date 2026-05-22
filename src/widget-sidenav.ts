@@ -119,6 +119,29 @@ export class WidgetSidenav extends LitElement {
             margin-top: 12px;
             overflow-y: auto;
             flex-grow: 1;
+            /* Derive scrollbar colors from the (inherited) text color so they
+               follow custom styles and themes — e.g. light thumb on dark nav. */
+            scrollbar-width: thin;
+            scrollbar-color: color-mix(in srgb, currentColor 35%, transparent) transparent;
+        }
+
+        /* WebKit/Blink fallback for browsers without scrollbar-color support. */
+        .nav-list::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        .nav-list::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .nav-list::-webkit-scrollbar-thumb {
+            background-color: color-mix(in srgb, currentColor 35%, transparent);
+            border-radius: 4px;
+        }
+
+        .nav-list::-webkit-scrollbar-thumb:hover {
+            background-color: color-mix(in srgb, currentColor 55%, transparent);
         }
 
         .nav-item {
