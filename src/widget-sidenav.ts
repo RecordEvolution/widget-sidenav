@@ -9,6 +9,26 @@ type Theme = {
     theme_name: string
     theme_object: any
 }
+
+/**
+ * ECharts themes describe a *chart canvas*, and most of them set
+ * `backgroundColor` to a fully transparent colour (the light theme uses
+ * `rgba(0, 0, 0, 0)`). That is a valid, truthy colour string, so using it
+ * verbatim as the nav background paints nothing at all. Treat any
+ * fully transparent theme colour as "no colour" so the fallback kicks in.
+ */
+const isTransparent = (color?: string) => {
+    if (!color) return true
+    const value = color.trim().toLowerCase()
+    if (value === 'transparent') return true
+    const functional = value.match(/^(?:rgba|hsla)\([^)]*[,/]\s*([\d.]+%?)\s*\)$/)
+    if (functional) return parseFloat(functional[1]) === 0
+    // #rrggbbaa / #rgba
+    if (/^#[0-9a-f]{8}$/.test(value)) return value.slice(7) === '00'
+    if (/^#[0-9a-f]{4}$/.test(value)) return value[4] === '0'
+    return false
+}
+
 @customElement('widget-sidenav-versionplaceholder')
 export class WidgetSidenav extends LitElement {
     @property({ type: Object }) inputData?: InputData
@@ -35,8 +55,9 @@ export class WidgetSidenav extends LitElement {
     registerTheme(theme?: Theme) {
         const cssTextColor = getComputedStyle(this).getPropertyValue('--re-text-color').trim()
         const cssBgColor = getComputedStyle(this).getPropertyValue('--re-tile-background-color').trim()
-        this.themeBgColor = cssBgColor || this.theme?.theme_object?.backgroundColor
-        this.themeTitleColor = cssTextColor || this.theme?.theme_object?.title?.textStyle?.color
+        const themeBgColor = theme?.theme_object?.backgroundColor
+        this.themeBgColor = cssBgColor || (isTransparent(themeBgColor) ? undefined : themeBgColor)
+        this.themeTitleColor = cssTextColor || theme?.theme_object?.title?.textStyle?.color
     }
 
     handleNavItemClick(route?: string) {
@@ -157,27 +178,34 @@ export class WidgetSidenav extends LitElement {
             font-family: 'Material Symbols Outlined';
         }
 
+        /* Derive the highlight from the (inherited) text color, like the
+           scrollbar above — a fixed black wash is invisible on a dark nav. */
         .selected {
-            background-color: rgba(0, 0, 0, 0.1);
+            background-color: color-mix(in srgb, currentColor 15%, transparent);
         }
 
         h2 {
             margin: 0;
             padding: 0px;
             font-size: 1.2em;
+            /* the UA stylesheet forces bold, which would ignore the
+               configured font weight */
+            font-weight: inherit;
         }
     `
 
     render() {
         const fontSize = this.inputData?.style?.fontSize ?? 16
-        const iconFontSize = (this.inputData?.style?.fontSize ?? 16) * 1.5
+        const fontWeight = this.inputData?.style?.fontWeight ?? 400
+        const iconFontSize = fontSize * 1.5
+        const fontColor = this.inputData?.style?.color || this.themeTitleColor || 'black'
+        const bgColor = this.inputData?.style?.backgroundColor || this.themeBgColor || 'white'
         const gap = fontSize * 0.4
         return html`
             <div
                 class="wrapper"
-                style="background-color: ${this.inputData?.style?.backgroundColor ||
-                this.themeBgColor}; color: ${this.inputData?.style?.color || this.themeTitleColor};
-                font-weight: ${this.inputData?.style?.fontWeight};
+                style="background-color: ${bgColor}; color: ${fontColor};
+                font-weight: ${fontWeight};
                 font-size: ${fontSize}px;"
             >
                 <h2
@@ -208,8 +236,7 @@ export class WidgetSidenav extends LitElement {
                             >
                                 ${item.iconName
                                     ? html`
-                                          <md-icon
-                                              style="font-size: ${iconFontSize}px;width: ${iconFontSize}px;"
+                                          <md-icon style="--md-icon-size: ${iconFontSize}px;"
                                               >${item.iconName}
                                           </md-icon>
                                       `
