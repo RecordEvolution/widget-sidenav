@@ -1,6 +1,20 @@
 {
-    "title": "Input Data",
+    "title": "Side Navigation Configuration",
     "description": "A vertical side navigation widget for creating sidebar menus in dashboards. Use this widget to provide hierarchical or list-based navigation along the side of the dashboard. Features a clickable title/header and multiple navigation items with icons. Supports customizable styling for fonts and colors to match your dashboard theme. Ideal for applications with multiple sections, settings pages, or when you need persistent navigation that doesn't take up header space.",
+    "aiSelection": {
+        "dataShape": "Navigation structure only: a title with a route, plus navItems[] each carrying a label, an icon and a route. No data input.",
+        "useWhen": [
+            "A dashboard has enough sections to need a persistent menu that does not consume header height.",
+            "Navigation should sit down the side, list-style, alongside the content.",
+            "An application-like layout with settings or sub-sections is being built."
+        ],
+        "notFor": [
+            "Navigation across the top of the page — use widget-navbar.",
+            "A single link or button — use widget-navbutton.",
+            "Choosing which data is shown rather than which page — use widget-filter-dropdown.",
+            "A heading that is only text and does not navigate — use widget-label."
+        ]
+    },
     "type": "object",
     "properties": {
         "title": {

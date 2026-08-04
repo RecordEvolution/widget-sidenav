@@ -1,7 +1,7 @@
 import { html, css, LitElement, PropertyValues } from 'lit'
 import { customElement, property, state } from 'lit/decorators.js'
 import { repeat } from 'lit/directives/repeat.js'
-import { InputData } from './definition-schema'
+import { SideNavigationConfiguration } from './definition-schema'
 
 import '@material/web/icon/icon.js'
 
@@ -31,7 +31,7 @@ const isTransparent = (color?: string) => {
 
 @customElement('widget-sidenav-versionplaceholder')
 export class WidgetSidenav extends LitElement {
-    @property({ type: Object }) inputData?: InputData
+    @property({ type: Object }) inputData?: SideNavigationConfiguration
     @property({ type: Object }) theme?: Theme
     @property({ type: String }) route?: string
 

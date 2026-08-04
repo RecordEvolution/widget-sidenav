@@ -29,7 +29,7 @@ npm i @record-evolution/widget-sidenav
 The widget accepts an `inputData` property with the following structure:
 
 ```typescript
-interface InputData {
+interface SideNavigationConfiguration {
     title?: string
     route?: string // Navigation route for title click
     leadingSlash?: boolean // Add leading slash to routes

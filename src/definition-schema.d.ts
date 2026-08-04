@@ -79,7 +79,7 @@ export type NavigationItems = {
 /**
  * A vertical side navigation widget for creating sidebar menus in dashboards. Use this widget to provide hierarchical or list-based navigation along the side of the dashboard. Features a clickable title/header and multiple navigation items with icons. Supports customizable styling for fonts and colors to match your dashboard theme. Ideal for applications with multiple sections, settings pages, or when you need persistent navigation that doesn't take up header space.
  */
-export interface InputData {
+export interface SideNavigationConfiguration {
     title?: TitleSettings;
     route?: TitleNavigation;
     variables?: TitleNavigationVariables;
