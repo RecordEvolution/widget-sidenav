@@ -9,7 +9,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - `npm run watch` — `vite build --watch` only (no dev server).
 - `npm run types` — Regenerate `src/definition-schema.d.ts` from `src/definition-schema.json` using `json2ts` (run after editing the schema).
 - `npm run analyze` — Generate Custom Elements Manifest via `cem analyze --litelement`.
-- `npm run release` — `build` + `types` + `npm version patch` (tag prefix empty) + push commit and tag. The git tag triggers `.github/workflows/build-publish.yml` which publishes to npm and creates a GitHub Release.
+- `npm run release` — `npm version patch`: preflight guards (on `main`, clean tree, not behind `origin/main`, generated files current, build passes), then commit, bare-semver tag, `git push --follow-tags`, then waits on the CI run and fails if the npm publish fails. `npm run release:minor` / `release:major` for other bumps.
 - `npm run link` / `npm run unlink` — Link/unlink against a sibling `../RESWARM/frontend` checkout for local integration testing.
 
 There is no test runner or linter configured. Node `>=24.9.0` and npm `>=10.0.2` are required (see `engines`).
