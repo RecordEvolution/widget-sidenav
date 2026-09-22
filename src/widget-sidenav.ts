@@ -53,11 +53,9 @@ export class WidgetSidenav extends LitElement {
     }
 
     registerTheme(theme?: Theme) {
-        const cssTextColor = getComputedStyle(this).getPropertyValue('--re-text-color').trim()
-        const cssBgColor = getComputedStyle(this).getPropertyValue('--re-tile-background-color').trim()
         const themeBgColor = theme?.theme_object?.backgroundColor
-        this.themeBgColor = cssBgColor || (isTransparent(themeBgColor) ? undefined : themeBgColor)
-        this.themeTitleColor = cssTextColor || theme?.theme_object?.title?.textStyle?.color
+        this.themeBgColor = `var(--re-tile-background-color, ${(isTransparent(themeBgColor) ? undefined : themeBgColor) || 'transparent'})`
+        this.themeTitleColor = `var(--re-text-color, ${theme?.theme_object?.title?.textStyle?.color || 'inherit'})`
     }
 
     handleNavItemClick(route?: string) {
